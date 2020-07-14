@@ -16,7 +16,10 @@ struct info{
 };
 int* finalresult;
 
-void* *thread_function(void *v){
+void* *thread_function(void *v){ //thread 내에서 사용할 howmany, process, total, file_name, value,interval이 들어있는 구조체
+	// 서브 thread에서 돌아가는 함수로, 파일에서 value부터 howmany만큼 숫자를 읽어오고, 이를 interval 별로 나누어서 숫자를 센 뒤
+	// mutex를 걸고 결과값을 전역변수에 저장
+	
 	struct info in = *((struct info *)v);
 	int howmany = in.howmany;
 	int process = in.process;
@@ -94,7 +97,7 @@ void* *thread_function(void *v){
 
 
 
-int main(int arc, char* argv[]){
+int main(int arc, char* argv[]){ //thread의 개수, interval, file_name을 입력받음
 	int process = atoi(argv[1]);
 	int interval = atoi(argv[2]);
 	char* file_name = argv[3];
@@ -103,7 +106,7 @@ int main(int arc, char* argv[]){
 	
 	FILE* file = fopen(file_name, "r");
 
-	int numbers;
+	int numbers; // 파일에 입력되어있는 숫자의 
 
 	fscanf(file, "%d", &numbers);
 
@@ -147,10 +150,10 @@ int main(int arc, char* argv[]){
 		value[i].file_name = file_name;
 		value[i].interval = interval;
 		place += howmany*5;
-	}
+	} //서브 thread가 사용할 값이 변동되는 것을 막기 위해, 구조체를 통해 thread의 인자 값으로 전달함
 
 	for(int i = 0; i<process; i++){
-		pthread_create(&p_thread[i], NULL, thread_function,(void*)&value[i]);
+		pthread_create(&p_thread[i], NULL, thread_function,(void*)&value[i]); //서브 thread 
 	}
 	
 	for(int i = 0; i<process; i++){
