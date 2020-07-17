@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MazeGame</title>
+</head>
+
+<body>
+	<script type="text/javascript">
+		var x = 0;
+		var y = 1;
+		var character_x, character_y;
+		var maze;
+		var end_x, end_y;
+		function start(){
+			var str = document.getElementById("maze").value;
+			x = 0;
+			y = 1;
+
+			for(var i = 0; i<str.length;i++){
+				if(str[i]=="\n"){
+					y++;
+				}else if(y==1){
+					x++;
+				}
+			}
+
+			maze = new Array(y);
+			for(var i = 0; i<y; i++){
+				maze[i] = new Array(x);
+			}
+			
+			var xx, yy;
+			var xplus = x+1;
+			for(var i = 0; i<str.length;i++){
+				if(str[i]=="\n"){
+				}else{
+					yy = Math.floor(i/xplus);
+					xx=i%xplus;
+					maze[yy][xx] = str[i];
+				}
+			}
+
+			document.write('<h1>Playing Maze</h1>');
+			document.write('<br>');
+			for(var i = 0; i<y;i++){
+				for(var j = 0; j<x;j++){
+					if(maze[i][j]==0){
+						document.write('<div style = "display:inline"><img width = 30px height=30px src = black.jpg> </div>');
+					}else{
+						var idd = x*i + j;
+						if(i==0){
+							document.write('<div style = "display:inline"><img width = 30px height = 30px src = character.png id = '+idd+'> </div>');
+							character_y = i;
+							character_x = j;
+						}else{
+							document.write('<div style = "display:inline"><img id = '+idd+' width = 30px height = 30px src = white.jpg> </div>');
+						}
+						if(i==y-1){
+							end_y = i;
+							end_x = j;
+						}
+
+					}
+				}
+				document.write('<br>');
+			}
+			document.write('<button onclick = "up()">up</button><button onclick = "left()">left</button><button onclick = "down()">down</button><button onclick = "right()">right</button>');
+
+		}
+
+		function check(){
+			if(character_x==end_x && character_y==end_y){
+				alert("You Win!");
+			}
+		}
+		function up(){
+			if(maze[character_y-1][character_x]==1){
+				var id1 = x*character_y + character_x;
+				character_y--;
+				var id2 = x*character_y+character_x;
+
+				document.getElementById(id1).src = "white.jpg";
+				document.getElementById(id2).src = "character.png";
+			}
+			check();
+
+		}
+
+		function down(){
+			if(maze[character_y+1][character_x]==1){
+				var id1 = x*character_y + character_x;
+				character_y++;
+				var id2 = x*character_y+character_x;
+
+				document.getElementById(id1).src = "white.jpg";
+				document.getElementById(id2).src = "character.png";
+			}
+			check();
+		}
+
+		function left(){
+			if(maze[character_y][character_x-1]==1){
+				var id1 = x*character_y + character_x;
+				character_x = character_x-1;
+				var id2 = x*character_y+character_x;
+
+				document.getElementById(id1).src = "white.jpg";
+				document.getElementById(id2).src = "character.png";
+			}
+			check();
+		}
+
+		function right(){
+			if(maze[character_y][character_x+1]==1){
+				var id1 = x*character_y + character_x;
+				character_x++;
+				var id2 = x*character_y+character_x;
+
+				document.getElementById(id1).src = "white.jpg";
+				document.getElementById(id2).src = "character.png";
+			}
+			check();
+
+		}
+		
+	</script>
+	<h1>Playing Maze</h1>
+	<h3>Please Enter File Name</h3>
+	<h5>추후에 파일 불러오는 것으로 구현 예정</h5>
+	<h5>지금은 MakingMaze에서 나타난 0101을 붙여넣기 해주세요ㅠㅠ</h5>
+	<textarea id="maze"></textarea>
+	<button onclick = "start()">Start</button>
+
+
+</body>
+</html>

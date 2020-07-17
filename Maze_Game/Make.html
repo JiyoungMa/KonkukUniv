@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+	<h1>Let's Make Maze!</h1>
+	<h3>Click the tile!</h3>
+	<script type="text/javascript" >
+		var temp = location.href.split("?");
+		var data = temp[1].split(":");
+		var x = data[0];
+		var y = data[1];
+		x = x*1;
+		y = y*1; // 자동형변환 이용하기
+
+		var maze = new Array(y);
+		for(var i = 0; i<y; i++){
+			maze[i] = new Array(x);
+			for(var j = 0; j<x;j++){
+				maze[i][j] = 0;	
+			}
+		}
+
+		function tile_click(one, two){
+			var getid = x*one+two;
+			// document.write(a);
+			if(maze[one][two]==0){
+			document.getElementById(getid).src = "white.jpg";
+			maze[one][two] = 1;
+			}else{
+				maze[one][two]=0;
+				document.getElementById(getid).src = "black.jpg";
+			}
+			
+		}
+
+		for(var i = 0; i<y;i++){
+			document.write('<div>');
+			for(var j = 0; j<x;j++){
+				var idd = x*i + j;
+				document.write('<div style = "display:inline"><img id = '+idd+' onclick = "tile_click('+i+','+j+')" width = 30px src = black.jpg> </div>');
+			}
+			document.write('</div>');
+		}
+
+		function save(){
+			// document.write('<a class="btn" href="practice.html" download="maze.txt">PDF 다운로드</a>');
+			// var filestr = document.getElementById('filename');
+			// var fso=new ActiveXObject('Scripting.FileSystemObject');
+			// var fileObj=fso.CreateTextFile("C:\\Users\\user\\Documents\\"+filestr,true);
+
+			// var f = fileObj.OpenTextFile("C:\\Users\\user\\Documents\\"+filestr,2,true);
+			// var lines = "";
+			// for(var i = 0; i<y;i++){
+			// 	for(var j = 0; j<x;j++){
+			// 		lines+=maze[i][j];
+			// 	}
+			// 	fileObj.WriteLine(lines);
+			// 	fileObj.WriteLine('\n');
+			// 	lines+"";
+			// }
+			
+			// fileObj.Close();
+
+			for(var i = 0; i<y;i++){
+				for(var j = 0; j<x;j++){
+					document.write(maze[i][j]+'');
+				}
+				document.write('<br>');
+			}
+
+			document.write('<h3>추후에 파일 저장으로 구현 예정</h3>');
+		}
+
+	</script>
+	<textarea id = "filename"></textarea>
+	<button onclick = "save()">Save</button>
+
+
+</body>
+</html>

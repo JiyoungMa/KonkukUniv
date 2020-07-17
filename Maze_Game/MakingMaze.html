@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MazeGame</title>
+</head>
+<body>
+	<h1>Enter the size of Maze</h1>
+	<h3>Enter x</h3>
+	<textarea id = "x"></textarea>
+	<h3>Enter y</h3>
+	<textarea id = "y"></textarea>
+	<button onclick="finish_f();">Finish</button>
+
+	<script>
+		function finish_f(){
+			var x = document.getElementById('x').value;
+			var y = document.getElementById('y').value;
+
+			location.href="Make.html?"+x+":"+y;
+		}
+	</script>
+    
+   
+</body>
+</html>
