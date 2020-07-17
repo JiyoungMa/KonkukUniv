@@ -1,0 +1,4 @@
+#Thu Jul 16 20:22:21 KST 2020
+base.0=C\:\\Users\\user\\AndroidStudioProjects\\MazeGame\\WhatsAppClone\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
